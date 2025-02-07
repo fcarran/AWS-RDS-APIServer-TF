@@ -1,7 +1,3 @@
-output "url" {
-  value = "https://${aws_lb.default.dns_name}"
-}
-
 output "aws_ssm_parameter" {
   value = aws_ssm_parameter.database_url.name
 }
@@ -44,7 +40,7 @@ output "rds_username" {
 }
 
 output "rds_password" {
-  value       = random_password.database.result
+  value       = random_password.database_password.result
   description = "RDS random password"
   sensitive   = true
 }
