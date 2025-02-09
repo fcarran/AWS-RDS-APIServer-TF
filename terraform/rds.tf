@@ -66,6 +66,7 @@ resource "aws_kms_key" "default" {
 }
 
 resource "aws_db_instance" "default" {
+  db_name             = local.service_name
   identifier          = "${local.service_name}-rds-db-instance"
   allocated_storage   = 20
   storage_type        = "gp3"
