@@ -14,3 +14,23 @@ The environment layout can be illustrated as the following:
 <img width="878" alt="env-view" src="https://github.com/user-attachments/assets/12d167bc-618e-46fe-a780-cd584cda03e9" />
 
 Network access to the newly provisioned instance is also defined via Terraform configuration file, but for testing purposes, will be left open to access only via port 5432.
+
+# Finding your seat 💺
+With infrastructure established in AWS, we need to test connectivity via allowed protocols and ports. In this test scenario, only connections via port 5432 are allowed (PostgreSQL). We could easily open up additional connectivity methods by altering our security groups, but for the sake of speed, we'll keep connections defined as our TF configuration specifies. 
+
+While an initial connection attempt could confirm we have connectivity to a database from outside of AWS, further confirmation via a log in is always appreciated. Hence, the `connectionAPI.py` script.
+This script starts with a borrowed function from AWS' Secret Manager, providing us access to the password needed to authenticate against our database. As a future enhancement would be to set the database password as an ENV VAR, or additionally, and preferred for longevity, provisioned via TF.
+
+The script also makes use of Flask, in an attempt to make this script into a service/API that would be called and containerized (as defined by the Dockerfile and requirements.txt).
+With the usage of Flask, we can now make use of a continuous stream of status messages as we either make changes to our script (debug) and if an authentication attempt fails, we will see why.
+![Python_App](https://github.com/user-attachments/assets/9f9c8c45-79a2-48be-bbaf-d3b886865b3c)
+
+Through the Flask app's provided localhost endpoint, we can then confirm a successful connection and authentication attempt:
+![Stutus200](https://github.com/user-attachments/assets/c9150d5e-d635-4ef4-902c-9b62fee7591f)
+
+# Future Enhancements 🔬
+- Change database connection hostname to a variable/fetch from TF
+- Pass DB password as a variable or provision via SSM and pull from AWS
+- Add better documentation/docstrings to python script
+- Add health checks to python script via doctests
+- Add logging library for better outputs from Flask app/python script
