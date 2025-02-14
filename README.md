@@ -29,6 +29,7 @@ Through the Flask app's provided localhost endpoint, we can then confirm a succe
 ![Stutus200](https://github.com/user-attachments/assets/c9150d5e-d635-4ef4-902c-9b62fee7591f)
 
 # Future Enhancements 🔬
+- In an a production environment, I'd setup an AWS ECS service to host and deploy the API service/container, rather than a local Docker install. 
 - Change database connection hostname to a variable/fetch from TF
 - Pass DB password as a variable or provision via SSM and pull from AWS
 - Add better documentation/docstrings to python script
